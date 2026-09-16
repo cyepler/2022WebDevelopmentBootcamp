@@ -149,6 +149,17 @@ export default function App() {
 
         {error && <p className="reader__error" role="alert">{error}</p>}
 
+        {book.format === 'text' && book.title.startsWith('Welcome') && (
+          <button
+            type="button"
+            className="reader__sample-cta"
+            disabled={busy}
+            onClick={loadSampleEpub}
+          >
+            Load sample EPUB with illustrations
+          </button>
+        )}
+
         <Controls
           playing={playing}
           wpm={wpm}

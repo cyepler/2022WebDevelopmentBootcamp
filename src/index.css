@@ -328,6 +328,29 @@ input {
   max-width: 36rem;
 }
 
+.reader__sample-cta {
+  appearance: none;
+  border: 1px solid rgba(196, 245, 66, 0.55);
+  background: linear-gradient(135deg, rgba(196, 245, 66, 0.2), rgba(26, 92, 82, 0.45));
+  color: var(--paper);
+  font-weight: 600;
+  padding: 0.85rem 1.25rem;
+  cursor: pointer;
+  max-width: min(92vw, 640px);
+  width: 100%;
+  transition: filter 160ms ease, transform 160ms ease;
+}
+
+.reader__sample-cta:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.reader__sample-cta:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
 .reader__keys {
   margin: 0;
   font-size: 0.75rem;
