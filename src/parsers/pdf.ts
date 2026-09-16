@@ -1,4 +1,4 @@
-import * as pdfjs from 'pdfjs-dist'
+import * as pdfjs from 'pdfjs-dist/legacy/build/pdf.mjs'
 import type { BookImage, ParsedBook } from '../lib/types'
 import { tokenize } from '../lib/text'
 
