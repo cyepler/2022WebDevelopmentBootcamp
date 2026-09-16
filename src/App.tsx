@@ -37,16 +37,25 @@ export default function App() {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return
       if (e.code === 'Space') {
         e.preventDefault()
+        if (!playing && finished) {
+          reset()
+          setPlaying(true)
+          return
+        }
         setPlaying((p) => !p)
       } else if (e.code === 'ArrowRight') {
         seek(index + 1)
       } else if (e.code === 'ArrowLeft') {
         seek(index - 1)
+      } else if (e.key === '+' || e.key === '=') {
+        setWpm((v) => Math.min(800, v + 20))
+      } else if (e.key === '-' || e.key === '_') {
+        setWpm((v) => Math.max(100, v - 20))
       }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [index, seek])
+  }, [index, seek, finished, reset, playing])
 
   const applyBook = useCallback(
     (parsed: ParsedBook) => {
@@ -164,7 +173,7 @@ export default function App() {
           }}
         />
 
-        <p className="reader__keys">Space play/pause · ← → step</p>
+        <p className="reader__keys">Space play/pause · ← → step · + − speed</p>
       </main>
     </div>
   )

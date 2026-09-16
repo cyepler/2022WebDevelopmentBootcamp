@@ -24,7 +24,7 @@ export function Controls({
   disabled,
 }: ControlsProps) {
   const progress = total > 1 ? (index / (total - 1)) * 100 : 0
-  const remainingWords = Math.max(0, total - index - (playing ? 0 : 0))
+  const remainingWords = Math.max(0, total - index)
   const etaMin = wpm > 0 ? remainingWords / wpm : 0
   const etaLabel =
     etaMin < 1
@@ -59,7 +59,7 @@ export function Controls({
         </button>
       </div>
 
-      <label className="controls__speed">
+      <div className="controls__speed">
         <span className="controls__speed-label">
           Speed <strong>{wpm}</strong> WPM
         </span>
@@ -71,13 +71,32 @@ export function Controls({
           value={wpm}
           disabled={disabled}
           onChange={(e) => onWpm(Number(e.target.value))}
+          aria-label="Reading speed"
           aria-valuetext={`${wpm} words per minute`}
         />
-        <span className="controls__speed-scale">
+        <div className="controls__speed-scale">
+          <button
+            type="button"
+            className="controls__speed-nudge"
+            disabled={disabled || wpm <= 100}
+            aria-label="Slower"
+            onClick={() => onWpm(Math.max(100, wpm - 20))}
+          >
+            −
+          </button>
           <span>100</span>
           <span>800</span>
-        </span>
-      </label>
+          <button
+            type="button"
+            className="controls__speed-nudge"
+            disabled={disabled || wpm >= 800}
+            aria-label="Faster"
+            onClick={() => onWpm(Math.min(800, wpm + 20))}
+          >
+            +
+          </button>
+        </div>
+      </div>
 
       <div className="controls__progress">
         <input
